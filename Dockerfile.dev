@@ -1,0 +1,12 @@
+FROM golang:1.19-alpine
+
+RUN apk add --no-cache make
+
+WORKDIR /go/src/github.com/cbr4yan/trepot
+
+COPY ./Makefile ./go.* ./
+
+RUN make deps
+
+RUN go get github.com/githubnemo/CompileDaemon
+RUN go install github.com/githubnemo/CompileDaemon

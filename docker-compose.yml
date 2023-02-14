@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - 9001:9001
+    volumes:
+      - ./:/go/src/github.com/cbr4yan/trepot
+    command: CompileDaemon -build="make build" -directory=/go/src/github.com/cbr4yan/trepot -exclude=/go/src/github.com/cbr4yan/trepot/build -pattern="(.+\.go|.+\.env)" -command="/go/src/github.com/cbr4yan/trepot/build/backend serve" -graceful-kill=true -log-prefix=false
+    depends_on:
+      - database
+
+  database:
+    container_name: database
+    image: postgres:15.2
+    ports:
+      - 5432:5432
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=postgres
+
+volumes:
+  database_data:
