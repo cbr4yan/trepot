@@ -11,7 +11,7 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/labstack/echo/v4 v4.10.0
 	github.com/rs/xid v1.4.0
-	github.com/spf13/cast v1.3.0
+	github.com/spf13/cast v1.5.0
 	github.com/spf13/cobra v1.6.1
 	go.uber.org/zap v1.24.0
 )
