@@ -12,22 +12,28 @@ type CompanyRequest struct {
 }
 
 type CompanyResponse struct {
-	ID       string `json:"id"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Currency string `json:"currency"`
-	Country  string `json:"country"`
-	Active   bool   `json:"active"`
+	BaseResponse
+	ID        string `json:"id"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	Currency  string `json:"currency"`
+	Country   string `json:"country"`
+	Active    bool   `json:"active"`
+	CreatedAt int64  `json:"created_at"`
 }
 
 func NewResponse(m *Company) *CompanyResponse {
 	return &CompanyResponse{
-		ID:       m.ID,
-		Name:     m.Name,
-		Email:    m.Email,
-		Currency: m.Currency,
-		Country:  m.Country,
-		Active:   m.Active,
+		BaseResponse: BaseResponse{
+			Object: "company",
+		},
+		ID:        m.ID,
+		Name:      m.Name,
+		Email:     m.Email,
+		Currency:  m.Currency,
+		Country:   m.Country,
+		Active:    m.Active,
+		CreatedAt: m.CreatedAt.Time().Unix(),
 	}
 }
 
