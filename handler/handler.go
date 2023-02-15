@@ -27,15 +27,9 @@ type Api struct {
 
 func (a *Api) Handler() http.Handler {
 	r := echo.New()
-
-	r.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
-		LogURI:    true,
-		LogStatus: true,
-		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
-			log.Info("request", zap.String("uri", v.URI), zap.Int("status", v.Status))
-			return nil
-		},
-	}))
+	r.Use(middleware.Recover())
+	r.Use(middleware.Secure())
+	r.Use(Logger())
 
 	r.GET("/__health", func(c echo.Context) error {
 		return c.String(http.StatusOK, "OK")
